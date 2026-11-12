@@ -4,101 +4,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TechStore | Catálogo{% endblock %}</title>
 
-    <title>{% block title %}Catálogo UNCP{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
-        * {
-            box-sizing: border-box;
+        :root {
+            --primary: #2563eb;
+            --dark: #0f172a;
+            --text: #334155;
+            --muted: #64748b;
+            --bg: #f8fafc;
+            --border: #e2e8f0;
+            --success: #059669;
         }
+
+        * { box-sizing: border-box; }
 
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f5f4;
             margin: 0;
-            color: #24332c;
+            font-family: 'Inter', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
         }
 
-        header {
-            background-color: #145a32;
-            color: white;
-            padding: 25px;
+        a { text-decoration: none; }
+
+        .container {
+            width: 92%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .topbar {
+            background: var(--dark);
+            color: #cbd5e1;
             text-align: center;
+            padding: 10px;
+            font-size: 12px;
         }
 
-        nav a {
+        .navbar {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 78px;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            color: var(--dark);
+        }
+
+        .logo span { color: var(--primary); }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover { color: var(--primary); }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary);
             color: white;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
+            padding: 13px 24px;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.2s;
         }
 
-        nav a:hover {
-            text-decoration: underline;
+        .btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
         }
 
-        main {
-            max-width: 1100px;
-            margin: 30px auto;
-            padding: 20px;
-            min-height: 65vh;
+        .hero {
+            background: linear-gradient(120deg, #0f172a, #1e40af);
+            color: white;
+            padding: 65px 45px;
+            border-radius: 20px;
+            margin: 35px 0;
+        }
+
+        .hero h1 {
+            font-size: clamp(28px, 4vw, 44px);
+            margin: 15px 0;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            color: #dbeafe;
+            max-width: 550px;
+            line-height: 1.8;
+        }
+
+        .section-title {
+            color: var(--dark);
+            font-size: 25px;
+            margin: 35px 0 10px;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(
-                auto-fit, minmax(240px, 1fr)
-            );
-            gap: 20px;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 22px;
+            margin: 25px 0 55px;
         }
 
         .card {
             background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 3px 12px #00000012;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 14px 30px #0f172a14;
+        }
+
+        .card-body { padding: 20px; }
+
+        .card h3 {
+            color: var(--dark);
+            font-size: 17px;
+            line-height: 1.5;
+            min-height: 48px;
+        }
+
+        .category {
+            color: var(--muted);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
         }
 
         .precio {
-            color: #147d46;
+            color: var(--dark);
             font-size: 24px;
-            font-weight: bold;
+            font-weight: 800;
+            margin: 16px 0;
         }
 
-        .boton {
-            display: inline-block;
-            padding: 12px 20px;
-            background: #167c45;
-            color: white;
-            border-radius: 8px;
-            text-decoration: none;
+        .stock {
+            color: var(--success);
+            font-size: 12px;
+            font-weight: 600;
         }
+
+        .product-visual {
+            height: 175px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, #eff6ff, #e2e8f0);
+            font-size: 65px;
+        }
+
+        .tag {
+            display: inline-block;
+            color: #1d4ed8;
+            background: #dbeafe;
+            padding: 7px 12px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .muted { color: var(--muted); }
 
         footer {
-            background: #145a32;
-            color: white;
-            text-align: center;
-            padding: 20px;
+            background: var(--dark);
+            color: #cbd5e1;
+            padding: 35px 0;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: center;
+        }
+
+        @media (max-width: 1000px) {
+            .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        @media (max-width: 600px) {
+            .nav-content {
+                flex-direction: column;
+                padding: 18px 0;
+            }
+
+            .nav-links { gap: 18px; }
+
+            .hero { padding: 35px 25px; }
+
+            .grid { grid-template-columns: 1fr; }
+
+            .footer-content { flex-direction: column; }
         }
     </style>
 </head>
 
 <body>
-    <header>
-        <h1>Catálogo de Productos Tecnológicos</h1>
-        <nav>
-            <a href="{% url 'home' %}">Inicio</a>
-            <a href="{% url 'catalogo' %}">Catálogo</a>
-        </nav>
+    <div class="topbar">
+        Proyecto académico | Desarrollo Web con Django
+    </div>
+
+    <header class="navbar">
+        <div class="container nav-content">
+            <a href="{% url 'home' %}" class="logo">
+                Tech<span>Store.</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="{% url 'home' %}">Inicio</a>
+                <a href="{% url 'catalogo' %}">Productos</a>
+                <a href="{% url 'admin:index' %}">Administración</a>
+            </nav>
+        </div>
     </header>
 
-    <main>
+    <main class="container">
         {% block content %}
         {% endblock %}
     </main>
 
     <footer>
-        &copy; 2026 - UNCP | Desarrollo Web Fullstack
+        <div class="container footer-content">
+            <strong>TechStore.</strong>
+            <span>Proyecto académico UNCP © 2026</span>
+            <span>Desarrollado con Python + Django</span>
+        </div>
     </footer>
 </body>
 </html>

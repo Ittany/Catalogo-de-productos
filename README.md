@@ -148,3 +148,7 @@ Resultado obtenido:
 ### Captura 03: Validación técnica
 
 ![Validación](capturas/Captura03.png)
+
+## 11. MEJORAS
+![Mejora](capturas/Captura05.png)
+![Mejora](capturas/Captura06.png)
