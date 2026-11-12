@@ -1,0 +1,27 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Inicio | Catálogo UNCP
+{% endblock %}
+
+{% block content %}
+
+<div class="card" style="text-align: center;">
+
+    <h2>{{ titulo }}</h2>
+
+    <p>{{ mensaje }}</p>
+
+    <p>
+        Aplicación web desarrollada con Python,
+        Django y arquitectura MTV.
+    </p>
+
+    <a href="{% url 'catalogo' %}" class="boton">
+        Ver catálogo
+    </a>
+
+</div>
+
+{% endblock %}

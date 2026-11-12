@@ -1,0 +1,56 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Catálogo de Productos | UNCP
+{% endblock %}
+
+{% block content %}
+
+<h2>Productos Tecnológicos Disponibles</h2>
+
+<p>Explora nuestro catálogo de productos.</p>
+
+<div class="grid">
+
+    {% for producto in productos %}
+
+    <div class="card">
+
+        <h3>{{ producto.nombre|title }}</h3>
+
+        <p>
+            <strong>Categoría:</strong>
+            {{ producto.categoria }}
+        </p>
+
+        <p class="precio">
+            S/ {{ producto.precio|floatformat:2 }}
+        </p>
+
+        {% if producto.stock > 0 %}
+
+            <p>
+                ✅ Disponible:
+                {{ producto.stock }} unidades
+            </p>
+
+        {% else %}
+
+            <p>Agotado</p>
+
+        {% endif %}
+
+    </div>
+
+    {% empty %}
+
+    <div class="card">
+        <p>No hay productos disponibles.</p>
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}
